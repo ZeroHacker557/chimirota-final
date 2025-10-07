@@ -12,7 +12,7 @@ const About: React.FC = () => {
               <img
                 src="/About-photo.jpg"
                 alt="Chimir ota Jome Masjidi"
-                className="w-full h-[600px] object-cover transform hover:scale-105 transition-transform duration-700"
+                className="w-full h-[60px] object-cover transform hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/30 to-transparent"></div>
             </div>
