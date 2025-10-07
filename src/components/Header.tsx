@@ -9,13 +9,12 @@ const Header: React.FC = () => {
 
   // Navigation items with explicit ids matching sections in the page
   const navItems = [
-    { id: 'home', label: 'Bosh sahifa' },
-    { id: 'about-masjid', label: 'Masjid haqida' },
-    { id: 'prayer-times', label: 'Namoz vaqtlari' },
-    { id: 'news', label: 'Yangiliklar' },
-    { id: 'donation', label: 'Ehson' },
-    { id: 'gallery', label: 'Galereya' },
-    { id: 'contact', label: 'Aloqa' },
+    { id: 'home', label: 'Home' },
+    { id: 'about-masjid', label: 'About Masjid' },
+    { id: 'prayer-times', label: 'Prayer Times' },
+    { id: 'news', label: 'News' },
+    { id: 'gallery', label: 'Gallery' },
+    { id: 'contact', label: 'Contact' },
   ];
 
   useEffect(() => {
@@ -77,30 +76,15 @@ const Header: React.FC = () => {
           {/* Logo + Title */}
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-md">
-              {/* Detailed mosque SVG icon */}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6" fill="white" aria-hidden>
-                {/* Main dome */}
-                <path d="M12 3c-2.5 0-4.5 1.5-4.5 3.5v1h9v-1C16.5 4.5 14.5 3 12 3z" />
-                {/* Crescent moon on top */}
-                <path d="M11.5 1.5c0 0.8 0.4 1.5 1 1.5s1-0.7 1-1.5S12.8 0.5 12 0.5 11.5 0.7 11.5 1.5z" />
-                <circle cx="12.5" cy="1.5" r="0.3" fill="none" stroke="white" strokeWidth="0.5" />
-                {/* Main building */}
-                <rect x="8" y="7.5" width="8" height="8" rx="0.5" />
-                {/* Entrance arch */}
-                <path d="M10.5 15.5v-3c0-0.8 0.7-1.5 1.5-1.5s1.5 0.7 1.5 1.5v3" fill="#047857" />
-                {/* Left minaret */}
-                <rect x="5" y="5" width="1.5" height="10.5" rx="0.2" />
-                <circle cx="5.75" cy="4.5" r="0.8" />
-                <path d="M5.4 3.8c0 0.4 0.2 0.7 0.35 0.7s0.35-0.3 0.35-0.7" fill="none" stroke="white" strokeWidth="0.3" />
-                {/* Right minaret */}
-                <rect x="17.5" y="5" width="1.5" height="10.5" rx="0.2" />
-                <circle cx="18.25" cy="4.5" r="0.8" />
-                <path d="M17.9 3.8c0 0.4 0.2 0.7 0.35 0.7s0.35-0.3 0.35-0.7" fill="none" stroke="white" strokeWidth="0.3" />
-                {/* Windows */}
-                <circle cx="10" cy="10" r="0.5" fill="#047857" />
-                <circle cx="14" cy="10" r="0.5" fill="#047857" />
-                {/* Base */}
-                <rect x="7" y="15.5" width="10" height="1" rx="0.2" />
+              {/* Inline mosque SVG icon for reliable rendering */}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6" aria-hidden>
+                {/* Dome */}
+                <path d="M12 5c-3 0-5 2-5 5h10c0-3-2-5-5-5z" fill="white" />
+                {/* Base and entrance */}
+                <path d="M6 12v5h2v-4h8v4h2v-5c0-1.1-0.9-2-2-2H8c-1.1 0-2 .9-2 2z" fill="white" />
+                {/* Minarets */}
+                <rect x="3.5" y="8" width="1" height="6" rx="0.2" fill="white" />
+                <rect x="19.5" y="8" width="1" height="6" rx="0.2" fill="white" />
               </svg>
             </div>
 
@@ -147,23 +131,17 @@ const Header: React.FC = () => {
         </div>
 
         {/* Mobile Navigation Panel */}
-        <div className={`md:hidden overflow-visible transition-[max-height,opacity] duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-[28rem] opacity-100' : 'max-h-0 opacity-0'}`}>
-          <nav className="flex flex-col gap-1 mt-4 pb-4 border-t border-emerald-700/50" aria-label="Mobile navigation">
-            {navItems.map((item, index) => (
+        <div className={`md:hidden overflow-hidden transition-[max-height,opacity] duration-300 ${isMobileMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
+          <nav className="flex flex-col gap-3 mt-4 pb-4 border-t border-emerald-700/50" aria-label="Mobile navigation">
+            {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`text-white px-4 py-3 text-left rounded-lg hover:bg-emerald-800/40 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-300 text-sm font-medium border border-transparent hover:border-emerald-600/30 ${
-                  activeSection === item.id ? 'bg-emerald-800/50 text-emerald-100 border-emerald-600/50' : ''
+                className={`text-white px-2 py-2 text-left rounded-md hover:bg-emerald-800/30 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-300 ${
+                  activeSection === item.id ? 'bg-emerald-800/40' : ''
                 }`}
-                style={{ animationDelay: `${index * 50}ms` }}
               >
-                <span className="flex items-center justify-between">
-                  {item.label}
-                  {activeSection === item.id && (
-                    <span className="w-2 h-2 bg-emerald-300 rounded-full"></span>
-                  )}
-                </span>
+                {item.label}
               </button>
             ))}
           </nav>

@@ -1,10 +1,7 @@
 import React from 'react';
 import { Clock } from 'lucide-react';
-import { useSettings } from '../contexts/SettingsContext';
 
 const Hero: React.FC = () => {
-  const { settings, isLoading } = useSettings();
-
   const scrollToPrayerTimes = () => {
     const element = document.getElementById('prayer-times');
     if (element) {
@@ -12,32 +9,13 @@ const Hero: React.FC = () => {
     }
   };
 
-  if (isLoading || !settings) {
-    return (
-      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="/Chimir-Ota-Masjidi.jpg"
-            alt="Chimir Ota Masjidi"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/80 via-emerald-800/70 to-amber-900/60"></div>
-        </div>
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-          <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white text-lg">Sahifa yuklanmoqda...</p>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img
-          src="/Chimir-Ota-Masjidi.jpg"
-          alt="Chimir Ota Masjidi"
+          src="https://images.pexels.com/photos/2486168/pexels-photo-2486168.jpeg?auto=compress&cs=tinysrgb&w=1920"
+          alt="Mosque at dusk"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/80 via-emerald-800/70 to-amber-900/60"></div>
@@ -55,11 +33,11 @@ const Hero: React.FC = () => {
         <div className="mb-8">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
             <span className="bg-gradient-to-r from-white to-emerald-100 bg-clip-text text-transparent">
-              {settings.mosque_info.mosque_name}
+              Chimir ota Jome Masjidi
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-emerald-100 font-light mb-8 max-w-2xl mx-auto leading-relaxed">
-            {settings.footer.footer_additional_text}
+            A place of worship, knowledge, and unity
           </p>
           <div className="w-24 h-1 bg-gradient-to-r from-emerald-400 to-amber-400 mx-auto mb-8 rounded-full"></div>
         </div>
@@ -69,7 +47,7 @@ const Hero: React.FC = () => {
           className="inline-flex items-center space-x-3 bg-emerald-700 hover:bg-emerald-600 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
         >
           <Clock className="w-6 h-6" />
-          <span>Namoz vaqtlarini ko'rish</span>
+          <span>View Prayer Times</span>
         </button>
 
         {/* Decorative Arabic Calligraphy */}
@@ -78,7 +56,7 @@ const Hero: React.FC = () => {
             بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
           </p>
           <p className="text-emerald-300 text-sm mt-2 opacity-70">
-            Mehribon va rahmli Alloh nomi bilan
+            In the name of Allah, the Most Gracious, the Most Merciful
           </p>
         </div>
       </div>
