@@ -75,7 +75,7 @@ const Donation: React.FC = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-teal-100/10 to-transparent rounded-full animate-spin-slow"></div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-20">
           <div className="inline-block mb-8">
@@ -94,7 +94,7 @@ const Donation: React.FC = () => {
         {/* Donation Methods */}
         <div className="max-w-5xl mx-auto">
           {/* Bank Information Card */}
-          <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-8 lg:p-12 shadow-2xl border border-white/30 mb-12">
+          <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-4 sm:p-6 md:p-8 lg:p-12 shadow-2xl border border-white/30 mb-8 sm:mb-12">
             <div className="text-center mb-10">
               <div className="inline-flex items-center space-x-3 bg-gradient-to-r from-emerald-100 to-teal-100 px-6 py-3 rounded-full mb-6">
                 <Building className="w-6 h-6 text-emerald-600" />
@@ -102,11 +102,11 @@ const Donation: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
               {donationInfo.map((info, index) => (
                 <div
                   key={index}
-                  className="group bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-emerald-200"
+                  className="group bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-emerald-200"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
@@ -114,7 +114,7 @@ const Donation: React.FC = () => {
                         <info.icon className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <h4 className="text-lg font-bold text-gray-800">{info.label}</h4>
+                        <h4 className="text-base sm:text-lg font-bold text-gray-800">{info.label}</h4>
                       </div>
                     </div>
                     {info.copyable && (
@@ -131,8 +131,8 @@ const Donation: React.FC = () => {
                       </button>
                     )}
                   </div>
-                  <div className="bg-gray-100 rounded-xl p-4">
-                    <p className="text-2xl font-mono font-bold text-gray-800 text-center tracking-wider">
+                  <div className="bg-gray-100 rounded-xl p-3 sm:p-4">
+                    <p className="text-sm sm:text-lg md:text-xl lg:text-2xl font-mono font-bold text-gray-800 text-center break-all leading-tight tracking-tight sm:tracking-wide">
                       {info.value}
                     </p>
                   </div>
@@ -142,15 +142,15 @@ const Donation: React.FC = () => {
           </div>
 
           {/* Payment Methods */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
             {/* PAYME Card */}
-            <div className="group bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105">
+            <div className="group bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl p-6 sm:p-8 shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105">
               <div className="text-center text-white">
                 <div className="mb-6">
                   <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <CreditCard className="w-10 h-10" />
                   </div>
-                  <h3 className="text-3xl font-bold mb-2">PAYME</h3>
+                  <h3 className="text-2xl sm:text-3xl font-bold mb-2">PAYME</h3>
                   <p className="text-blue-100">Onlayn to'lov tizimi orqali</p>
                 </div>
                 <button
@@ -164,17 +164,17 @@ const Donation: React.FC = () => {
             </div>
 
             {/* CLICK Card */}
-            <div className="group bg-gradient-to-br from-orange-500 to-red-500 rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105">
+            <div className="group bg-gradient-to-br from-orange-500 to-red-500 rounded-3xl p-6 sm:p-8 shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105">
               <div className="text-center text-white">
                 <div className="mb-6">
                   <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Phone className="w-10 h-10" />
                   </div>
-                  <h3 className="text-3xl font-bold mb-2">CLICK</h3>
+                  <h3 className="text-2xl sm:text-3xl font-bold mb-2">CLICK</h3>
                   <p className="text-orange-100">USSD kod bilan</p>
                 </div>
-                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 mb-6">
-                  <p className="text-2xl font-mono font-bold tracking-wider">{donationData.donation_click_code} 📞</p>
+                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-3 sm:p-4 mb-6">
+                  <p className="text-sm sm:text-lg md:text-xl lg:text-2xl font-mono font-bold break-all leading-tight tracking-tight sm:tracking-wide">{donationData.donation_click_code} 📞</p>
                 </div>
                 <button
                   onClick={handleClickClick}

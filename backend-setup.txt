@@ -1,0 +1,75 @@
+# Backend Files Setup for GitHub
+
+## Step 1: Create New Repository for Backend
+
+Create a new folder and copy these files:
+
+COPY THESE FILES TO NEW BACKEND REPO:
+✅ server.js
+✅ backend-package.json (rename to package.json)
+✅ render.yaml
+✅ DEPLOYMENT-GUIDE.md
+✅ README.md
+
+## Step 2: Create Backend .gitignore
+
+Create new .gitignore with:
+```
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Logs
+logs/
+*.log
+
+# Runtime
+.tmp/
+temp/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+```
+
+## Step 3: Create Backend README.md
+
+# Chimir ota Jome Masjidi - Backend API
+
+Backend API server for the mosque website.
+
+## Features
+- Prayer times management
+- Events management
+- Admin authentication
+- Real-time updates with Socket.io
+- Settings management
+
+## Deployment
+Deploy to Render.com using the provided render.yaml configuration.
+
+## Environment Variables
+- NODE_ENV=production
+- FRONTEND_URL=https://your-frontend.vercel.app
+
+## Endpoints
+- GET /api/prayer-times
+- GET /api/events
+- GET /api/settings
+- POST /api/admin/login

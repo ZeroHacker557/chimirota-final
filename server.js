@@ -1,7 +1,7 @@
 const express = require('express');
-const express = require('express');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
 
@@ -13,12 +13,26 @@ const PORT = process.env.PORT || 3001;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5174';
 
+// CORS configuration for production
+const getAllowedOrigins = () => {
+  if (NODE_ENV === 'production') {
+    return [
+      FRONTEND_URL,
+      'https://chimirota-final.vercel.app',
+      'https://chimirota-final.vercel.app/',
+      'https://chimirotajome.vercel.app',
+      'https://chimirotajome.vercel.app/',
+      /\.vercel\.app$/,
+      /\.onrender\.com$/
+    ];
+  }
+  return ["http://localhost:5173", "http://localhost:5174"];
+};
+
 // Socket.io with dynamic CORS
 const io = new Server(server, {
   cors: {
-    origin: NODE_ENV === 'production' 
-      ? [FRONTEND_URL, 'https://*.vercel.app', 'https://*.onrender.com']
-      : ["http://localhost:5173", "http://localhost:5174"],
+    origin: getAllowedOrigins(),
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   }
@@ -26,9 +40,30 @@ const io = new Server(server, {
 
 // CORS configuration
 const corsOptions = {
-  origin: NODE_ENV === 'production'
-    ? [FRONTEND_URL, 'https://*.vercel.app', 'https://*.onrender.com']
-    : ["http://localhost:5173", "http://localhost:5174"],
+  origin: function (origin, callback) {
+    const allowedOrigins = getAllowedOrigins();
+    
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    
+    // Check if origin is in allowed list
+    const isAllowed = allowedOrigins.some(allowedOrigin => {
+      if (typeof allowedOrigin === 'string') {
+        return allowedOrigin === origin;
+      }
+      if (allowedOrigin instanceof RegExp) {
+        return allowedOrigin.test(origin);
+      }
+      return false;
+    });
+    
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      console.log('CORS blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -37,6 +72,18 @@ const corsOptions = {
 // Middleware
 app.use(cors(corsOptions));
 app.use(express.json());
+
+// Add request logging for debugging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path} - Origin: ${req.get('origin')}`);
+  next();
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Error:', err.message);
+  res.status(500).json({ error: 'Internal server error' });
+});
 
 // Health check endpoint
 app.get('/', (req, res) => {
@@ -48,8 +95,15 @@ app.get('/', (req, res) => {
   });
 });
 
-// Database setup
-const db = new sqlite3.Database('./mosque.db');
+// Database setup with proper path for production
+const dbPath = NODE_ENV === 'production' ? '/tmp/mosque.db' : './mosque.db';
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error('Error opening database:', err.message);
+    process.exit(1);
+  }
+  console.log('✅ Connected to SQLite database at:', dbPath);
+});
 
 // Create tables
 db.serialize(() => {
@@ -587,9 +641,12 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Mosque API is running' });
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Mosque API server running on port ${PORT}`);
   console.log(`📡 WebSocket server ready for real-time updates`);
+  console.log(`🌍 Environment: ${NODE_ENV}`);
+  console.log(`📍 Database: ${dbPath}`);
+  console.log(`🔒 CORS allowed origins:`, getAllowedOrigins());
 });
 
 // Graceful shutdown

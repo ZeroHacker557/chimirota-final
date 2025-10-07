@@ -8,8 +8,7 @@
     "dev": "node server.js"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -22,8 +21,7 @@
     "mosque",
     "backend",
     "nodejs",
-    "express",
-    "render"
+    "express"
   ],
   "author": "Chimir ota Jome Masjidi",
   "license": "MIT"

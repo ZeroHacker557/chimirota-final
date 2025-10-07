@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAdmin } from '../../contexts/AdminContext';
 import { useSettings } from '../../contexts/SettingsContext';
+import { BASE_URL } from '../../config/api';
 import { 
   Settings, 
   Save, 
@@ -70,7 +71,7 @@ const SettingsAdmin: React.FC = () => {
   const fetchSettings = async () => {
     try {
       setIsFetching(true);
-      const response = await fetch('http://localhost:3001/api/settings');
+      const response = await fetch(`${BASE_URL}/api/settings`);
       
       if (!response.ok) {
         throw new Error('Sozlamalarni yuklashda xatolik yuz berdi');
@@ -119,7 +120,7 @@ const SettingsAdmin: React.FC = () => {
         donation: donationSettings
       };
 
-      const response = await fetch('http://localhost:3001/api/settings', {
+      const response = await fetch(`${BASE_URL}/api/settings`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

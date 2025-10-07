@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { io, Socket } from 'socket.io-client';
+import { BASE_URL } from '../config/api';
 
 interface PrayerTime {
   name: string;
@@ -51,13 +52,13 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Initialize socket connection and load data
   useEffect(() => {
     // Initialize socket connection
-    const newSocket = io('http://localhost:3001');
+    const newSocket = io(BASE_URL);
     setSocket(newSocket);
 
     // Load prayer times from API
     const loadPrayerTimes = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/prayer-times');
+        const response = await fetch(`${BASE_URL}/api/prayer-times`);
         if (response.ok) {
           const data = await response.json();
           setPrayerTimes(data);
@@ -70,7 +71,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     // Load events from API
     const loadEvents = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/events');
+        const response = await fetch(`${BASE_URL}/api/events`);
         if (response.ok) {
           const data = await response.json();
           setEvents(data);
@@ -111,7 +112,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const updatePrayerTimes = async (times: PrayerTime[]) => {
     try {
-      const response = await fetch('http://localhost:3001/api/prayer-times', {
+      const response = await fetch(`${BASE_URL}/api/prayer-times`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -134,7 +135,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const addEvent = async (event: Omit<Event, 'id'>) => {
     try {
-      const response = await fetch('http://localhost:3001/api/events', {
+      const response = await fetch(`${BASE_URL}/api/events`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -157,7 +158,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const updateEvent = async (id: number, eventUpdate: Partial<Event>) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/events/${id}`, {
+      const response = await fetch(`${BASE_URL}/api/events/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -178,7 +179,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const deleteEvent = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/events/${id}`, {
+      const response = await fetch(`${BASE_URL}/api/events/${id}`, {
         method: 'DELETE',
       });
 

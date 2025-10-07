@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAdmin } from '../../contexts/AdminContext';
 import { useAuth } from '../../contexts/AuthContext';
+import { BASE_URL } from '../../config/api';
 import { 
   UserCog, 
   Save, 
@@ -94,7 +95,7 @@ const ProfileSettingsAdmin: React.FC = () => {
         ...(formData.newPassword && { newPassword: formData.newPassword })
       };
 
-      const response = await fetch('http://localhost:3001/api/admin/update-profile', {
+      const response = await fetch(`${BASE_URL}/api/admin/update-profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

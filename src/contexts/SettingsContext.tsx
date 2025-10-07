@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { BASE_URL } from '../config/api';
 
 interface MosqueInfo {
   mosque_name: string;
@@ -113,7 +114,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
       setIsLoading(true);
       setError(null);
       
-      const response = await fetch('http://localhost:3001/api/settings');
+      const response = await fetch(`${BASE_URL}/api/settings`);
       
       if (!response.ok) {
         throw new Error('Failed to fetch settings');
